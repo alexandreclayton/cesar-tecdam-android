@@ -1,5 +1,7 @@
 package io.github.alexandreclayton.tecdamandroid;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -7,6 +9,14 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Toast;
+
+import com.spotify.sdk.android.authentication.AuthenticationClient;
+import com.spotify.sdk.android.authentication.AuthenticationRequest;
+import com.spotify.sdk.android.authentication.AuthenticationResponse;
+
+import java.util.Locale;
 
 import io.github.alexandreclayton.tecdamandroid.fragments.PlayListFragment;
 import io.github.alexandreclayton.tecdamandroid.fragments.PlayNowFragment;
@@ -14,6 +24,13 @@ import io.github.alexandreclayton.tecdamandroid.fragments.ProfileFragment;
 
 public class MainActivity extends AppCompatActivity {
 
+
+    public static final String SPOTIFY_WEB_API_ENDPOINT = "https://api.spotify.com/v1";
+    public static final String CLIENT_ID = "7e7bd3c704be43e192bdff63a4f9531f";
+    public static final String CLIENT_SECRET = "7a587d8f0bb24dedae08caf1855a9495";
+    public static final String REDIRECT_URI = "spotify-sdk://auth";
+    public static final int AUTH_TOKEN_REQUEST_CODE = 0x10;
+    public static final int AUTH_CODE_REQUEST_CODE = 0x11;
 
     private PlayNowFragment playNowFragment;
     private PlayListFragment playListFragment;
@@ -62,9 +79,43 @@ public class MainActivity extends AppCompatActivity {
         }
 
 
-
         BottomNavigationView navigation = findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+
+        onRequestTokenClicked(getCurrentFocus());
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        final AuthenticationResponse response = AuthenticationClient.getResponse(resultCode, data);
+
+        if (AUTH_TOKEN_REQUEST_CODE == requestCode) {
+            Toast.makeText(this, "TOKEN: " + response.getAccessToken(), Toast.LENGTH_LONG).show();
+        } else if (AUTH_CODE_REQUEST_CODE == requestCode) {
+            Toast.makeText(this, "TOKEN: " + response.getAccessToken(), Toast.LENGTH_LONG).show();
+        }
+    }
+
+    public void onRequestTokenClicked(View view) {
+        final AuthenticationRequest request = getAuthenticationRequest(AuthenticationResponse.Type.TOKEN);
+        AuthenticationClient.openLoginActivity(this, AUTH_TOKEN_REQUEST_CODE, request);
+    }
+
+    private AuthenticationRequest getAuthenticationRequest(AuthenticationResponse.Type type) {
+        return new AuthenticationRequest.Builder(CLIENT_ID, type, getRedirectUri().toString())
+                .setShowDialog(false)
+                .setScopes(new String[]{"user-read-private", "streaming"})
+                .setCampaign("android-sdk")
+                .build();
+    }
+
+    private Uri getRedirectUri() {
+        return new Uri.Builder()
+                .scheme("spotify-sdk")
+                .authority("auth")
+                .build();
     }
 
     private void buildFragments(FragmentManager fragmentManager) {
