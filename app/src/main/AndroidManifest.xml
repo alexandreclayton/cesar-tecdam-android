@@ -33,7 +33,7 @@
                 <category android:name="android.intent.category.BROWSABLE"/>
 
                 <data
-                    android:scheme="spotify-sdk"
+                    android:scheme="tecdamandroid"
                     android:host="auth"/>
             </intent-filter>
         </activity>

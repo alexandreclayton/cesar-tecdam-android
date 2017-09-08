@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
     public static final String SPOTIFY_WEB_API_ENDPOINT = "https://api.spotify.com/v1";
     public static final String CLIENT_ID = "7e7bd3c704be43e192bdff63a4f9531f";
     public static final String CLIENT_SECRET = "7a587d8f0bb24dedae08caf1855a9495";
-    public static final String REDIRECT_URI = "spotify-sdk://auth";
+    public static final String REDIRECT_URI = "tecdamandroid://auth";
     public static final int AUTH_TOKEN_REQUEST_CODE = 0x10;
     public static final int AUTH_CODE_REQUEST_CODE = 0x11;
 
@@ -82,7 +82,7 @@ public class MainActivity extends AppCompatActivity {
         BottomNavigationView navigation = findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
-        onRequestTokenClicked(getCurrentFocus());
+        onRequestTokenClicked(this.getCurrentFocus());
 
     }
 
@@ -100,6 +100,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void onRequestTokenClicked(View view) {
         final AuthenticationRequest request = getAuthenticationRequest(AuthenticationResponse.Type.TOKEN);
+        //AuthenticationClient.openLoginInBrowser(this, request);
         AuthenticationClient.openLoginActivity(this, AUTH_TOKEN_REQUEST_CODE, request);
     }
 
@@ -113,7 +114,7 @@ public class MainActivity extends AppCompatActivity {
 
     private Uri getRedirectUri() {
         return new Uri.Builder()
-                .scheme("spotify-sdk")
+                .scheme("tecdamandroid")
                 .authority("auth")
                 .build();
     }

@@ -9,6 +9,6 @@
     <string name="hello_playlist_fragment">Hello blank PlayList</string>
     <string name="hello_profile_fragment">Hello blank Profile</string>
 
-    <string name="com_spotify_sdk_redirect_scheme">spotify-sdk</string>
+    <string name="com_spotify_sdk_redirect_scheme">tecdamandroid</string>
     <string name="com_spotify_sdk_redirect_host">auth</string>
 </resources>
