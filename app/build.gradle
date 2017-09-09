@@ -30,8 +30,9 @@ dependencies {
 
     //ConstraintLayout
     compile "com.android.support.constraint:constraint-layout:${rootProject.ext.constraintLayoutVersion}"
-    //Spotify - Auth2
+    //Spotify - Auth2, Playback
     compile 'com.spotify.android:auth:1.0.0-alpha'
+    compile 'com.spotify.sdk:spotify-player-24-noconnect-2.20b@aar'
 
     //Others
     compile "com.squareup.retrofit2:retrofit:${rootProject.ext.retrofitVersion}"
