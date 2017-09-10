@@ -35,6 +35,8 @@ dependencies {
     compile 'com.spotify.sdk:spotify-player-24-noconnect-2.20b@aar'
     //CircleImageView
     compile 'de.hdodenhof:circleimageview:2.1.0'
+    //GSON
+    compile 'com.google.code.gson:gson:2.8.0'
 
     //Others
     compile "com.squareup.retrofit2:retrofit:${rootProject.ext.retrofitVersion}"
