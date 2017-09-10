@@ -11,4 +11,7 @@
 
     <string name="com_spotify_sdk_redirect_scheme">tecdamandroid</string>
     <string name="com_spotify_sdk_redirect_host">auth</string>
+    <string name="PLAYLISTS">PLAYLISTS</string>
+    <string name="FOLLOWERS">FOLLOWERS</string>
+    <string name="FOLLOWING">FOLLOWING</string>
 </resources>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="PLAYLISTS">PLAYLISTS</string>
+    <string name="FOLLOWERS">FOLLOWERS</string>
+    <string name="FOLLOWING">FOLLOWING</string>
+</resources>
