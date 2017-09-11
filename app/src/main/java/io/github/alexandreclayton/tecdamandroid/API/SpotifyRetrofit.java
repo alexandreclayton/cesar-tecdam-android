@@ -15,20 +15,20 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 
 public class SpotifyRetrofit {
-    public static final String SPOTIFY_WEB_API_ENDPOINT = "https://api.spotify.com/v1";
+    public static final String SPOTIFY_WEB_API_ENDPOINT = "https://api.spotify.com/v1/";
 
     private SpotifyService spotifyService;
 
-    private String TOKEN = "";
+    private String Token = "";
 
-    public SpotifyRetrofit() {
+    public SpotifyRetrofit(String token) {
+        setToken(token);
         OkHttpClient httpClient = new OkHttpClient.Builder()
                 .addInterceptor(new Interceptor() {
                     @Override
                     public Response intercept(Chain chain) throws IOException {
                         Request.Builder ongoing = chain.request().newBuilder();
-                        ongoing.addHeader("Accept", "application/json;versions=1");
-                        ongoing.addHeader("Authorization", "Bearer " + TOKEN);
+                        ongoing.addHeader("Authorization", "Bearer " + getToken());
                         return chain.proceed(ongoing.build());
                     }
                 })
@@ -38,7 +38,23 @@ public class SpotifyRetrofit {
                 .client(httpClient)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
-        spotifyService = retrofit.create(SpotifyService.class);
+        setSpotifyService(retrofit.create(SpotifyService.class));
 
+    }
+
+    public String getToken() {
+        return Token;
+    }
+
+    public void setToken(String Token) {
+        this.Token = Token;
+    }
+
+    public SpotifyService getSpotifyService() {
+        return spotifyService;
+    }
+
+    public void setSpotifyService(SpotifyService spotifyService) {
+        this.spotifyService = spotifyService;
     }
 }
