@@ -38,8 +38,9 @@ dependencies {
     //GSON
     compile 'com.google.code.gson:gson:2.8.0'
 
-    //Others
+    //Retrofit
     compile "com.squareup.retrofit2:retrofit:${rootProject.ext.retrofitVersion}"
+    compile "com.squareup.retrofit2:converter-gson:${rootProject.ext.retrofitVersion}"
     compile "com.android.support:support-v4:${rootProject.ext.androidSupportVersion}"
     testCompile 'junit:junit:4.12'
 }

@@ -24,8 +24,6 @@ import io.github.alexandreclayton.tecdamandroid.fragments.ProfileFragment;
 
 public class MainActivity extends AppCompatActivity {
 
-
-    public static final String SPOTIFY_WEB_API = "https://api.spotify.com/v1";
     public static final String CLIENT_ID = "7e7bd3c704be43e192bdff63a4f9531f";
     public static String TOKEN = "";
     public static final String CLIENT_SECRET = "7a587d8f0bb24dedae08caf1855a9495";
@@ -94,10 +92,8 @@ public class MainActivity extends AppCompatActivity {
 
         if (AUTH_TOKEN_REQUEST_CODE == requestCode) {
             TOKEN = response.getAccessToken();
-            Toast.makeText(this, "TOKEN: " + response.getAccessToken(), Toast.LENGTH_LONG).show();
         } else if (AUTH_CODE_REQUEST_CODE == requestCode) {
             TOKEN = response.getAccessToken();
-            Toast.makeText(this, "TOKEN: " + response.getAccessToken(), Toast.LENGTH_LONG).show();
         }
     }
 
