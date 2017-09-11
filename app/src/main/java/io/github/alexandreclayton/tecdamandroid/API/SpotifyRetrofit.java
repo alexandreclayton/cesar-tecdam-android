@@ -21,7 +21,7 @@ public class SpotifyRetrofit {
 
     private String TOKEN = "";
 
-    public SpotifyRetrofit(SpotifyService spotifyService) {
+    public SpotifyRetrofit() {
         OkHttpClient httpClient = new OkHttpClient.Builder()
                 .addInterceptor(new Interceptor() {
                     @Override
