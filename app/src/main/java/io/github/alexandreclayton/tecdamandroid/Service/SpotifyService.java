@@ -12,9 +12,9 @@ import retrofit2.http.GET;
 public interface SpotifyService {
 
 
-    @GET("/me")
+    @GET("/v1/me")
     Call<UserPrivate> getMe();
 
-    @GET("/me/playlists")
+    @GET("/v1/me/playlists")
     Call<PlaylistSimple> getMyPlaylists();
 }
