@@ -7,7 +7,7 @@ import android.os.Parcel;
  */
 
 public class PlaylistSimple extends PlaylistBase {
-    public PlaylistTracksInformation tracks;
+    public Integer total;
 
     @Override
     public int describeContents() {
@@ -17,7 +17,7 @@ public class PlaylistSimple extends PlaylistBase {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         super.writeToParcel(dest, flags);
-        dest.writeParcelable(this.tracks, flags);
+        dest.writeInt(this.total);
     }
 
     public PlaylistSimple() {
@@ -25,7 +25,7 @@ public class PlaylistSimple extends PlaylistBase {
 
     protected PlaylistSimple(Parcel in) {
         super(in);
-        this.tracks = in.readParcelable(PlaylistTracksInformation.class.getClassLoader());
+        this.total = in.readInt();
     }
 
     public static final Creator<PlaylistSimple> CREATOR = new Creator<PlaylistSimple>() {

@@ -25,6 +25,7 @@ public abstract class PlaylistBase implements Parcelable {
     public String snapshot_id;
     public String type;
     public String uri;
+    public Integer total;
 
     protected PlaylistBase() {
     }
@@ -47,6 +48,7 @@ public abstract class PlaylistBase implements Parcelable {
         dest.writeValue(snapshot_id);
         dest.writeValue(type);
         dest.writeValue(uri);
+        dest.writeValue(total);
     }
 
     protected PlaylistBase(Parcel in) {
@@ -61,5 +63,6 @@ public abstract class PlaylistBase implements Parcelable {
         this.snapshot_id = (String) in.readValue(String.class.getClassLoader());
         this.type = (String) in.readValue(String.class.getClassLoader());
         this.uri = (String) in.readValue(String.class.getClassLoader());
+        this.total = (Integer) in.readValue(String.class.getClassLoader());
     }
 }

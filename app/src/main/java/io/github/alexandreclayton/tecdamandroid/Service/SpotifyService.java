@@ -17,4 +17,6 @@ public interface SpotifyService {
 
     @GET("/v1/me/playlists")
     Call<PlaylistSimple> getMyPlaylists();
+
+
 }
