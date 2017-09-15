@@ -10,6 +10,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
 import java.io.IOException;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -20,6 +22,7 @@ import io.github.alexandreclayton.tecdamandroid.Model.PlaylistSimple;
 import io.github.alexandreclayton.tecdamandroid.Model.UserPrivate;
 import io.github.alexandreclayton.tecdamandroid.R;
 import io.github.alexandreclayton.tecdamandroid.Service.SpotifyService;
+import io.github.alexandreclayton.tecdamandroid.Util;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -45,37 +48,26 @@ public class ProfileFragment extends Fragment {
         txtQtdPlaylist = root.findViewById(R.id.txtQtdPlaylist);
         txtQtdFollowers = root.findViewById(R.id.txtQtdFollowers);
         txtQtdFollowin = root.findViewById(R.id.txtQtdFollowin);
+        profileImage = root.findViewById(R.id.profile_image);
 
         if (!MainActivity.TOKEN.isEmpty()) {
             try {
                 SpotifyRetrofit retrofit = new SpotifyRetrofit(MainActivity.TOKEN);
                 SpotifyService spotifyService = retrofit.getSpotifyService();
 
-                    /*
+
                 spotifyService.getMe().enqueue(new Callback<UserPrivate>() {
                     @Override
                     public void onResponse(Call<UserPrivate> call, Response<UserPrivate> response) {
-                        userPrivate[0] = response.body();
-                        txtName.setText(userPrivate[0].display_name);
-                        txtQtdFollowers.setText(userPrivate[0].followers.total.toString());
+
+                        Picasso.with(getContext()).load(response.body().images.get(0).url).into(profileImage);
+                        txtName.setText(response.body().display_name);
+                        txtQtdFollowers.setText(response.body().followers.total.toString());
                     }
 
                     @Override
                     public void onFailure(Call<UserPrivate> call, Throwable t) {
 
-                    }
-                });
-                */
-                spotifyService.getMyPlaylists().enqueue(new Callback<PlaylistSimple>() {
-                    @Override
-                    public void onResponse(Call<PlaylistSimple> call, Response<PlaylistSimple> response) {
-                        Integer total = response.body().total;
-                        Log.i("Retrofit", total + "");
-                    }
-
-                    @Override
-                    public void onFailure(Call<PlaylistSimple> call, Throwable t) {
-                        t.printStackTrace();
                     }
                 });
 

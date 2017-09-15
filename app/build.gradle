@@ -41,6 +41,10 @@ dependencies {
     //Retrofit
     compile "com.squareup.retrofit2:retrofit:${rootProject.ext.retrofitVersion}"
     compile "com.squareup.retrofit2:converter-gson:${rootProject.ext.retrofitVersion}"
+
+    //Picasso
+    compile 'com.squareup.picasso:picasso:2.5.2'
+
     compile "com.android.support:support-v4:${rootProject.ext.androidSupportVersion}"
     testCompile 'junit:junit:4.12'
 }
