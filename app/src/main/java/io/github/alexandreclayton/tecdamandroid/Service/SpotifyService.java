@@ -1,7 +1,7 @@
 package io.github.alexandreclayton.tecdamandroid.Service;
 
-import io.github.alexandreclayton.tecdamandroid.Model.PlaylistSimple;
-import io.github.alexandreclayton.tecdamandroid.Model.UserPrivate;
+import io.github.alexandreclayton.tecdamandroid.Model.Playlist;
+import io.github.alexandreclayton.tecdamandroid.Model.UserProfile;
 import retrofit2.Call;
 import retrofit2.http.GET;
 
@@ -13,13 +13,9 @@ public interface SpotifyService {
 
 
     @GET("me")
-    Call<UserPrivate> getMe();
+    Call<UserProfile> getProfile();
 
     @GET("me/playlists")
-    Call<PlaylistSimple> getMyPlaylists();
-
-    @GET("me/playlists")
-    Call<String> getPlaylists();
-
+    Call<Playlist> getPlaylists();
 
 }
