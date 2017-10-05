@@ -106,7 +106,7 @@ public class MainActivity extends AppCompatActivity {
     private AuthenticationRequest getAuthenticationRequest(AuthenticationResponse.Type type) {
         return new AuthenticationRequest.Builder(CLIENT_ID, type, getRedirectUri().toString())
                 .setShowDialog(false)
-                .setScopes(new String[]{"user-read-private", "playlist-read-private", "streaming"})
+                .setScopes(new String[]{"user-read-private", "playlist-read-private", "user-follow-read","streaming"})
                 .setCampaign("android-sdk")
                 .build();
     }

@@ -15,6 +15,8 @@ import com.squareup.picasso.Picasso;
 import de.hdodenhof.circleimageview.CircleImageView;
 import io.github.alexandreclayton.tecdamandroid.API.SpotifyImpl;
 import io.github.alexandreclayton.tecdamandroid.MainActivity;
+import io.github.alexandreclayton.tecdamandroid.Model.FollowedArtists;
+import io.github.alexandreclayton.tecdamandroid.Model.Playlist;
 import io.github.alexandreclayton.tecdamandroid.Model.UserProfile;
 import io.github.alexandreclayton.tecdamandroid.R;
 import io.github.alexandreclayton.tecdamandroid.Service.SpotifyService;
@@ -52,7 +54,7 @@ public class ProfileFragment extends Fragment {
                     public void onResponse(Call<UserProfile> call, retrofit2.Response<UserProfile> response) {
                         if (response.isSuccessful()) {
                             UserProfile userProfile = response.body();
-                            Log.d("RETORNO API", userProfile.display_name);
+                            Picasso.with(getContext()).load(response.body().images.get(0).url).into(profileImage);
                             txtName.setText(userProfile.display_name);
                             txtQtdFollowers.setText(userProfile.followers.total.toString());
                         }
@@ -63,7 +65,34 @@ public class ProfileFragment extends Fragment {
                         Log.e("QUERY", t.getMessage(), t);
                     }
                 });
+                spotify.getSpotifyService().getPlaylists().enqueue(new Callback<Playlist>() {
+                    @Override
+                    public void onResponse(Call<Playlist> call, Response<Playlist> response) {
+                        if (response.isSuccessful()) {
+                            Playlist playlist = response.body();
+                            txtQtdPlaylist.setText(playlist.total.toString());
+                        }
+                    }
 
+                    @Override
+                    public void onFailure(Call<Playlist> call, Throwable t) {
+                        Log.e("QUERY", t.getMessage(), t);
+                    }
+                });
+                spotify.getSpotifyService().getFollowedArtists().enqueue(new Callback<FollowedArtists>() {
+                    @Override
+                    public void onResponse(Call<FollowedArtists> call, Response<FollowedArtists> response) {
+                        if (response.isSuccessful()) {
+                            FollowedArtists followedArtists = response.body();
+                            txtQtdFollowin.setText(String.valueOf(followedArtists.artists.total));
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<FollowedArtists> call, Throwable t) {
+                        Log.e("QUERY", t.getMessage(), t);
+                    }
+                });
 
             } catch (Exception e) {
                 e.printStackTrace();

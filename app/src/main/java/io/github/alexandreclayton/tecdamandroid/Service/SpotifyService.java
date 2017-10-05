@@ -1,5 +1,6 @@
 package io.github.alexandreclayton.tecdamandroid.Service;
 
+import io.github.alexandreclayton.tecdamandroid.Model.FollowedArtists;
 import io.github.alexandreclayton.tecdamandroid.Model.Playlist;
 import io.github.alexandreclayton.tecdamandroid.Model.UserProfile;
 import retrofit2.Call;
@@ -17,5 +18,8 @@ public interface SpotifyService {
 
     @GET("me/playlists")
     Call<Playlist> getPlaylists();
+
+    @GET("me/following?type=artist")
+    Call<FollowedArtists> getFollowedArtists();
 
 }
