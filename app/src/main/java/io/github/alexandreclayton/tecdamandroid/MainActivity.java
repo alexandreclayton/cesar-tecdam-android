@@ -1,5 +1,6 @@
 package io.github.alexandreclayton.tecdamandroid;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -10,6 +11,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.spotify.sdk.android.authentication.AuthenticationClient;
@@ -60,6 +62,21 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        BottomNavigationView navigation = findViewById(R.id.navigation);
+        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+        onRequestTokenClicked(this.getCurrentFocus());
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        final AuthenticationResponse response = AuthenticationClient.getResponse(resultCode, data);
+
+        if (AUTH_TOKEN_REQUEST_CODE == requestCode) {
+            TOKEN = response.getAccessToken();
+        } else if (AUTH_CODE_REQUEST_CODE == requestCode) {
+            TOKEN = response.getAccessToken();
+        }
 
         FragmentManager fragmentManager = getSupportFragmentManager();
         if (fragmentManager.findFragmentById(R.id.content) == null) {
@@ -76,25 +93,7 @@ public class MainActivity extends AppCompatActivity {
         } else {
             buildFragments(fragmentManager);
         }
-
-
-        BottomNavigationView navigation = findViewById(R.id.navigation);
-        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-
-        onRequestTokenClicked(this.getCurrentFocus());
-
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        final AuthenticationResponse response = AuthenticationClient.getResponse(resultCode, data);
-
-        if (AUTH_TOKEN_REQUEST_CODE == requestCode) {
-            TOKEN = response.getAccessToken();
-        } else if (AUTH_CODE_REQUEST_CODE == requestCode) {
-            TOKEN = response.getAccessToken();
-        }
+        //mProgressBar.setVisibility(View.GONE);
     }
 
     public void onRequestTokenClicked(View view) {

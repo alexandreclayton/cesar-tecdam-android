@@ -1,5 +1,7 @@
 package io.github.alexandreclayton.tecdamandroid.fragments;
 
+import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -51,6 +53,19 @@ public class PlayNowFragment extends Fragment implements SpotifyPlayer.Notificat
         View root = inflater.inflate(R.layout.fragment_playnow, container, false);
 
         return root;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        Log.d("RESUME ======","PlayNowFragment");
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        Log.d("Attach ======","PlayNowFragment");
     }
 
     @Override
