@@ -10,15 +10,20 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import io.github.alexandreclayton.tecdamandroid.API.SpotifyImpl;
 import io.github.alexandreclayton.tecdamandroid.MainActivity;
 import io.github.alexandreclayton.tecdamandroid.Model.Playlist;
+import io.github.alexandreclayton.tecdamandroid.Model.PlaylistBase;
 import io.github.alexandreclayton.tecdamandroid.R;
+import io.github.alexandreclayton.tecdamandroid.adapter.PlaylistAdapter;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
+import static io.github.alexandreclayton.tecdamandroid.R.layout.playlistview;
 
 public class PlayListFragment extends Fragment {
 
@@ -33,7 +38,7 @@ public class PlayListFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.fragment_playlist, container, false);
+        final View root = inflater.inflate(R.layout.fragment_playlist, container, false);
         lvPlaylist = root.findViewById(R.id.lvPlaylist);
 
         if (!MainActivity.TOKEN.isEmpty()) {
@@ -43,8 +48,10 @@ public class PlayListFragment extends Fragment {
                 public void onResponse(Call<Playlist> call, Response<Playlist> response) {
                     if (response.isSuccessful()) {
                         Playlist playlist = response.body();
-                        //txtQtdPlaylist.setText(playlist.total.toString());
 
+                        PlaylistAdapter playlistAdapter = new PlaylistAdapter(getContext()
+                                , R.layout.playlistview, playlist.items);
+                        lvPlaylist.setAdapter(playlistAdapter);
                     }
                 }
 

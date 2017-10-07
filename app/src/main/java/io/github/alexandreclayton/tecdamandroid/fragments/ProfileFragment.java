@@ -49,6 +49,7 @@ public class ProfileFragment extends Fragment {
         if (!MainActivity.TOKEN.isEmpty()) {
             try {
                 SpotifyImpl spotify = new SpotifyImpl(MainActivity.TOKEN);
+
                 spotify.getSpotifyService().getProfile().enqueue(new Callback<UserProfile>() {
                     @Override
                     public void onResponse(Call<UserProfile> call, retrofit2.Response<UserProfile> response) {
