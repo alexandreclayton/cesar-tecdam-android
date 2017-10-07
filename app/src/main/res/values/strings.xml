@@ -14,4 +14,6 @@
     <string name="PLAYLISTS">PLAYLISTS</string>
     <string name="FOLLOWERS">FOLLOWERS</string>
     <string name="FOLLOWING">FOLLOWING</string>
+    <string name="msgConnectionRestored">Is connected</string>
+    <string name="msgNoConection">Is disconnected</string>
 </resources>

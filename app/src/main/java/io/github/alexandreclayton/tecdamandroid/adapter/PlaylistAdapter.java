@@ -21,7 +21,7 @@ import io.github.alexandreclayton.tecdamandroid.R;
 
 public class PlaylistAdapter extends ArrayAdapter<PlaylistBase> {
 
-    private int resource;
+    private int resource = 0;
 
     public PlaylistAdapter(@NonNull Context context, @LayoutRes int resource) {
         super(context, resource);
@@ -42,7 +42,7 @@ public class PlaylistAdapter extends ArrayAdapter<PlaylistBase> {
         if (v == null) {
             LayoutInflater vi;
             vi = LayoutInflater.from(getContext());
-            v = vi.inflate(R.layout.playlistview, null);
+            v = vi.inflate(this.resource, null);
         }
 
         PlaylistBase playlistBase = getItem(position);
