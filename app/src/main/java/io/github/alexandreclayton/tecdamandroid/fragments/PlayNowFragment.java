@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.util.ArraySet;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -32,7 +33,7 @@ public class PlayNowFragment extends Fragment implements SpotifyPlayer.Notificat
 
     private Player mPlayer;
     private SharedPreferences sharedPref;
-    private Set<String> playlist;
+    private ArraySet<String> playlist;
 
 
     @Override
@@ -46,7 +47,7 @@ public class PlayNowFragment extends Fragment implements SpotifyPlayer.Notificat
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_playnow, container, false);
         sharedPref = getActivity().getPreferences(Context.MODE_PRIVATE);
-        playlist = sharedPref.getStringSet("PLAYLIST", new HashSet<String>());
+        playlist = (ArraySet<String>) sharedPref.getStringSet("PLAYLIST", new ArraySet<String>());
         Config playerConfig = new Config(this.getContext(), TOKEN, MainActivity.CLIENT_ID);
         Spotify.getPlayer(playerConfig, this, new SpotifyPlayer.InitializationObserver() {
             @Override
@@ -85,12 +86,11 @@ public class PlayNowFragment extends Fragment implements SpotifyPlayer.Notificat
 
     @Override
     public void onLoggedIn() {
-        Log.d("MainActivity", "User logged in");
         if (!playlist.isEmpty()) {
-            Iterator<String> iterator = playlist.iterator();
-            if (iterator.hasNext()) {
-                String uri = iterator.next();
-                mPlayer.playUri(null, uri, 0, 0);
+            for (int i = 0; i < playlist.size(); i++) {
+                SharedPreferences.Editor editor = sharedPref.edit();
+                editor.putInt("CURRENT", i);
+                mPlayer.playUri(null, playlist.valueAt(i), 0, 0);
             }
         }
     }

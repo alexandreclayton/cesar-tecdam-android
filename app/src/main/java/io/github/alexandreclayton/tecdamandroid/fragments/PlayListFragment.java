@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.util.ArraySet;
 import android.support.v4.widget.SimpleCursorAdapter;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -77,7 +78,7 @@ public class PlayListFragment extends Fragment {
                     spotify.getSpotifyService().getPlaylistTraks(playlistBase.owner.id, playlistBase.id).enqueue(new Callback<Pager<PlaylistTrack>>() {
                         @Override
                         public void onResponse(Call<Pager<PlaylistTrack>> call, Response<Pager<PlaylistTrack>> response) {
-                            Set<String> playlists = new HashSet<String>();
+                            Set<String> playlists = new ArraySet<String>();
                             for(PlaylistTrack item : response.body().items){
                                 playlists.add(item.track.uri);
                             }
