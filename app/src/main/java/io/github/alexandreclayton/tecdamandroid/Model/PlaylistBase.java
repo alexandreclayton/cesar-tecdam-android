@@ -20,9 +20,10 @@ public class PlaylistBase {
     public String id;
     public List<Image> images;
     public String name;
-    public UserProfile owner;
+    public PlaylistOwner owner;
     @SerializedName("public")
     public Boolean is_public;
+    public Tracks tracks;
     public String snapshot_id;
     public String type;
     public String uri;

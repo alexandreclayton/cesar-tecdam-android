@@ -16,4 +16,5 @@
     <string name="FOLLOWING">FOLLOWING</string>
     <string name="msgConnectionRestored">Is connected</string>
     <string name="msgNoConection">Is disconnected</string>
+    <string name="music">music(s)</string>
 </resources>

@@ -2,6 +2,7 @@ package io.github.alexandreclayton.tecdamandroid.fragments;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -18,6 +19,10 @@ import com.spotify.sdk.android.player.PlayerEvent;
 import com.spotify.sdk.android.player.Spotify;
 import com.spotify.sdk.android.player.SpotifyPlayer;
 
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Set;
+
 import io.github.alexandreclayton.tecdamandroid.MainActivity;
 import io.github.alexandreclayton.tecdamandroid.R;
 
@@ -26,11 +31,22 @@ import static io.github.alexandreclayton.tecdamandroid.MainActivity.TOKEN;
 public class PlayNowFragment extends Fragment implements SpotifyPlayer.NotificationCallback, ConnectionStateCallback {
 
     private Player mPlayer;
+    private SharedPreferences sharedPref;
+    private Set<String> playlist;
 
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+    }
+
+    @Nullable
+    @Override
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View root = inflater.inflate(R.layout.fragment_playnow, container, false);
+        sharedPref = getActivity().getPreferences(Context.MODE_PRIVATE);
+        playlist = sharedPref.getStringSet("PLAYLIST", new HashSet<String>());
         Config playerConfig = new Config(this.getContext(), TOKEN, MainActivity.CLIENT_ID);
         Spotify.getPlayer(playerConfig, this, new SpotifyPlayer.InitializationObserver() {
             @Override
@@ -45,13 +61,6 @@ public class PlayNowFragment extends Fragment implements SpotifyPlayer.Notificat
                 Log.e("PlayNowFragment", "Could not initialize player: " + throwable.getMessage());
             }
         });
-    }
-
-    @Nullable
-    @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.fragment_playnow, container, false);
-
         return root;
     }
 
@@ -59,25 +68,31 @@ public class PlayNowFragment extends Fragment implements SpotifyPlayer.Notificat
     public void onResume() {
         super.onResume();
 
-        Log.d("RESUME ======","PlayNowFragment");
+        Log.d("RESUME ======", "PlayNowFragment");
     }
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        Log.d("Attach ======","PlayNowFragment");
+        Log.d("Attach ======", "PlayNowFragment");
     }
 
     @Override
     public void onDestroy() {
-        Spotify.destroyPlayer(this);
+        //Spotify.destroyPlayer(this);
         super.onDestroy();
     }
 
     @Override
     public void onLoggedIn() {
         Log.d("MainActivity", "User logged in");
-        mPlayer.playUri(null, "spotify:track:7vcO2LxMCfbhnvncdD8kba", 0, 0);
+        if (!playlist.isEmpty()) {
+            Iterator<String> iterator = playlist.iterator();
+            if (iterator.hasNext()) {
+                String uri = iterator.next();
+                mPlayer.playUri(null, uri, 0, 0);
+            }
+        }
     }
 
     @Override

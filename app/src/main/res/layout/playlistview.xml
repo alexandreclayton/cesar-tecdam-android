@@ -1,9 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TextView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/label"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:padding="10dip"
-    android:textColor="@color/colorAccent"
-    android:textSize="16dip"
-    android:textStyle="bold"></TextView>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:weightSum="1">
+
+    <ImageView
+        android:id="@+id/imgPlaylist"
+        android:layout_width="67dp"
+        android:layout_height="58dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_weight="0.06"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@android:drawable/ic_menu_slideshow"
+        tools:layout_editor_absoluteY="10dp" />
+
+    <TextView
+        android:id="@+id/txtPlaylistName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:text=""
+        android:textAlignment="textStart"
+        android:textColor="@color/textColorPrimary"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintLeft_toRightOf="@+id/imgPlaylist"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/imgPlaylist"
+        android:layout_marginTop="0dp" />
+
+    <TextView
+        android:id="@+id/txtPlaylistAuthor"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="0dp"
+        android:layout_marginRight="0dp"
+        android:layout_marginTop="7dp"
+        android:text=""
+        android:textColor="@color/textColorSecondary"
+        app:layout_constraintLeft_toLeftOf="@+id/txtPlaylistName"
+        app:layout_constraintRight_toRightOf="@+id/txtPlaylistName"
+        app:layout_constraintTop_toBottomOf="@+id/txtPlaylistName" />
+
+</android.support.constraint.ConstraintLayout>
