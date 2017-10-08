@@ -7,7 +7,9 @@ import io.github.alexandreclayton.tecdamandroid.Model.PlaylistTrack;
 import io.github.alexandreclayton.tecdamandroid.Model.UserProfile;
 import retrofit2.Call;
 import retrofit2.http.GET;
+import retrofit2.http.PUT;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 /**
  * Created by alexandresette on 09/09/17.
@@ -30,5 +32,8 @@ public interface SpotifyService {
 
     @GET("users/{user_id}/playlists/{playlist_id}/tracks")
     Call<Pager<PlaylistTrack>> getPlaylistTraks(@Path("user_id") String user_id, @Path("playlist_id") String playlist_id);
+
+    @PUT("me/player/volume")
+    void ajustVolume(@Query("volume_percent") Integer volume);
 
 }

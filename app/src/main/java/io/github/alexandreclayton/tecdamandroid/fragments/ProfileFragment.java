@@ -26,8 +26,9 @@ import retrofit2.Response;
 
 public class ProfileFragment extends Fragment {
 
-    TextView txtName, txtQtdPlaylist, txtQtdFollowers, txtQtdFollowin;
-    CircleImageView profileImage;
+    private TextView txtName, txtQtdPlaylist, txtQtdFollowers, txtQtdFollowin;
+    private CircleImageView profileImage;
+    private SpotifyImpl spotify;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -48,8 +49,7 @@ public class ProfileFragment extends Fragment {
 
         if (!MainActivity.TOKEN.isEmpty()) {
             try {
-                SpotifyImpl spotify = new SpotifyImpl(MainActivity.TOKEN);
-
+                spotify = new SpotifyImpl(MainActivity.TOKEN);
                 spotify.getSpotifyService().getProfile().enqueue(new Callback<UserProfile>() {
                     @Override
                     public void onResponse(Call<UserProfile> call, retrofit2.Response<UserProfile> response) {
