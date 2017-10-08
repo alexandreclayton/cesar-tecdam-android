@@ -78,12 +78,12 @@ public class PlayListFragment extends Fragment {
                     spotify.getSpotifyService().getPlaylistTraks(playlistBase.owner.id, playlistBase.id).enqueue(new Callback<Pager<PlaylistTrack>>() {
                         @Override
                         public void onResponse(Call<Pager<PlaylistTrack>> call, Response<Pager<PlaylistTrack>> response) {
-                            Set<String> playlists = new ArraySet<String>();
-                            for(PlaylistTrack item : response.body().items){
-                                playlists.add(item.track.uri);
-                            }
+                            //Set<String> playlists = new ArraySet<String>();
+                            //for(PlaylistTrack item : response.body().items){
+                            //    playlists.add(item.track.uri);
+                            //}
                             SharedPreferences.Editor editor = sharedPref.edit();
-                            editor.putStringSet("PLAYLIST", playlists);
+                            editor.putString("PLAYLIST", playlistBase.uri);
                             editor.commit();
                         }
 

@@ -33,7 +33,8 @@ public class PlayNowFragment extends Fragment implements SpotifyPlayer.Notificat
 
     private Player mPlayer;
     private SharedPreferences sharedPref;
-    private ArraySet<String> playlist;
+    //private ArraySet<String> playlist;
+    private String playlist;
 
 
     @Override
@@ -47,7 +48,8 @@ public class PlayNowFragment extends Fragment implements SpotifyPlayer.Notificat
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_playnow, container, false);
         sharedPref = getActivity().getPreferences(Context.MODE_PRIVATE);
-        playlist = (ArraySet<String>) sharedPref.getStringSet("PLAYLIST", new ArraySet<String>());
+        //playlist = (ArraySet<String>) sharedPref.getStringSet("PLAYLIST", new ArraySet<String>());
+        playlist = (String) sharedPref.getString("PLAYLIST", new String());
         Config playerConfig = new Config(this.getContext(), TOKEN, MainActivity.CLIENT_ID);
         Spotify.getPlayer(playerConfig, this, new SpotifyPlayer.InitializationObserver() {
             @Override
@@ -87,11 +89,11 @@ public class PlayNowFragment extends Fragment implements SpotifyPlayer.Notificat
     @Override
     public void onLoggedIn() {
         if (!playlist.isEmpty()) {
-            for (int i = 0; i < playlist.size(); i++) {
-                SharedPreferences.Editor editor = sharedPref.edit();
-                editor.putInt("CURRENT", i);
-                mPlayer.playUri(null, playlist.valueAt(i), 0, 0);
-            }
+            //for (int i = 0; i < playlist.size(); i++) {
+            //   SharedPreferences.Editor editor = sharedPref.edit();
+            //   editor.putInt("CURRENT", i);
+            mPlayer.playUri(null, playlist, 0, 0);
+            // }
         }
     }
 
