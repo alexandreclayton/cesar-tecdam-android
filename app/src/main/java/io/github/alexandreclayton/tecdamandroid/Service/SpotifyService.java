@@ -1,5 +1,6 @@
 package io.github.alexandreclayton.tecdamandroid.Service;
 
+import io.github.alexandreclayton.tecdamandroid.Model.CurrentPlaying;
 import io.github.alexandreclayton.tecdamandroid.Model.FollowedArtists;
 import io.github.alexandreclayton.tecdamandroid.Model.Pager;
 import io.github.alexandreclayton.tecdamandroid.Model.Playlist;
@@ -35,5 +36,8 @@ public interface SpotifyService {
 
     @PUT("me/player/volume")
     void ajustVolume(@Query("volume_percent") Integer volume);
+
+    @GET("me/player/currently-playing")
+    Call<CurrentPlaying> getCurrentPlaying();
 
 }

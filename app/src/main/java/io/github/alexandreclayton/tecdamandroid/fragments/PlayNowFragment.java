@@ -37,14 +37,11 @@ public class PlayNowFragment extends Fragment implements SpotifyPlayer.Notificat
     private SpotifyImpl spotify;
     private Player mPlayer;
     private SharedPreferences sharedPref;
-    //private ArraySet<String> playlist;
     private String playlist;
     // Componentes de tela
     private ImageButton btnPlayPause;
     private ImageButton btnPrevious;
     private ImageButton btnNext;
-    private ImageButton btnVolDown;
-    private ImageButton btnVolUp;
     private TextView txtMusica;
     private TextView txtAlbum;
 
@@ -63,8 +60,6 @@ public class PlayNowFragment extends Fragment implements SpotifyPlayer.Notificat
         btnPlayPause = root.findViewById(R.id.btnPlayPause);
         btnPrevious = root.findViewById(R.id.btnPrevious);
         btnNext = root.findViewById(R.id.btnNext);
-        btnVolDown = root.findViewById(R.id.btnVolDown);
-        btnVolUp = root.findViewById(R.id.btnVolUp);
         txtMusica = root.findViewById(R.id.txtMusica);
         txtAlbum = root.findViewById(R.id.txtAlbum);
 
@@ -152,23 +147,6 @@ public class PlayNowFragment extends Fragment implements SpotifyPlayer.Notificat
                 }
             }
         });
-        btnVolUp.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (spotify != null) {
-                    spotify.getSpotifyService().ajustVolume(80);
-                }
-            }
-        });
-        btnVolDown.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (spotify != null) {
-                    spotify.getSpotifyService().ajustVolume(20);
-                }
-            }
-        });
-
 
         return root;
     }
@@ -176,26 +154,29 @@ public class PlayNowFragment extends Fragment implements SpotifyPlayer.Notificat
     @Override
     public void onResume() {
         super.onResume();
-        Log.d("RESUME ======", "PlayNowFragment");
+        if (mPlayer != null && mPlayer.getPlaybackState().isPlaying) {
+            btnPlayPause.setImageResource(R.drawable.ic_pause_black_24dp);
+        } else {
+            btnPlayPause.setImageResource(R.drawable.ic_play_circle_outline_black_24dp);
+        }
+
     }
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        Log.d("Attach ======", "PlayNowFragment");
     }
 
     @Override
     public void onDestroy() {
-        //Spotify.destroyPlayer(this);
         super.onDestroy();
     }
 
     @Override
     public void onLoggedIn() {
-        if (!playlist.isEmpty()) {
-            mPlayer.playUri(null, playlist, 0, 0);
-        }
+       // if (!playlist.isEmpty()) {
+       //     mPlayer.playUri(null, playlist, 0, 0);
+       // }
     }
 
     @Override
@@ -223,6 +204,41 @@ public class PlayNowFragment extends Fragment implements SpotifyPlayer.Notificat
         Log.d("MainActivity", "Playback event received: " + playerEvent.name());
         switch (playerEvent) {
             // Handle event type as necessary
+            case UNKNOWN:
+            case kSpPlaybackNotifyPlay:
+                break;
+            case kSpPlaybackNotifyPause:
+                break;
+            case kSpPlaybackNotifyTrackChanged:
+                break;
+            case kSpPlaybackNotifyNext:
+                break;
+            case kSpPlaybackNotifyPrev:
+                break;
+            case kSpPlaybackNotifyShuffleOn:
+                break;
+            case kSpPlaybackNotifyShuffleOff:
+                break;
+            case kSpPlaybackNotifyRepeatOn:
+                break;
+            case kSpPlaybackNotifyRepeatOff:
+                break;
+            case kSpPlaybackNotifyBecameActive:
+                break;
+            case kSpPlaybackNotifyBecameInactive:
+                break;
+            case kSpPlaybackNotifyLostPermission:
+                break;
+            case kSpPlaybackEventAudioFlush:
+                break;
+            case kSpPlaybackNotifyAudioDeliveryDone:
+                break;
+            case kSpPlaybackNotifyContextChanged:
+                break;
+            case kSpPlaybackNotifyTrackDelivered:
+                break;
+            case kSpPlaybackNotifyMetadataChanged:
+                break;
             default:
                 break;
         }

@@ -5,7 +5,6 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.util.ArraySet;
 import android.support.v4.widget.SimpleCursorAdapter;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -13,10 +12,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
-
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Set;
 
 import io.github.alexandreclayton.tecdamandroid.API.SpotifyImpl;
 import io.github.alexandreclayton.tecdamandroid.MainActivity;
@@ -29,8 +24,6 @@ import io.github.alexandreclayton.tecdamandroid.adapter.PlaylistAdapter;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-
-import static io.github.alexandreclayton.tecdamandroid.R.layout.playlistview;
 
 public class PlayListFragment extends Fragment {
 

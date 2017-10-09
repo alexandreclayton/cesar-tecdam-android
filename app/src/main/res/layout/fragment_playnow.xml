@@ -12,15 +12,14 @@
         android:layout_width="48dp"
         android:layout_height="wrap_content"
         app:srcCompat="@drawable/ic_play_circle_outline_black_24dp"
-        app:layout_constraintLeft_toRightOf="@+id/btnVolDown"
-        android:layout_marginLeft="8dp"
-        app:layout_constraintRight_toLeftOf="@+id/btnVolUp"
-        android:layout_marginRight="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         android:layout_marginBottom="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
-        app:layout_constraintHorizontal_bias="0.505" />
+        app:layout_constraintLeft_toRightOf="@+id/btnPrevious"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintRight_toLeftOf="@+id/btnNext"
+        android:layout_marginRight="8dp" />
 
     <ImageButton
         android:id="@+id/btnPrevious"
@@ -94,27 +93,5 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         tools:text="Music" />
-
-    <ImageButton
-        android:id="@+id/btnVolDown"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:srcCompat="@drawable/ic_volume_down_black_24dp"
-        app:layout_constraintLeft_toRightOf="@+id/btnPrevious"
-        android:layout_marginLeft="9dp"
-        android:layout_marginStart="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginBottom="8dp" />
-
-    <ImageButton
-        android:id="@+id/btnVolUp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:srcCompat="@drawable/ic_volume_up_black_24dp"
-        android:layout_marginRight="8dp"
-        app:layout_constraintRight_toLeftOf="@+id/btnNext"
-        android:layout_marginEnd="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginBottom="8dp" />
 
 </android.support.constraint.ConstraintLayout>
