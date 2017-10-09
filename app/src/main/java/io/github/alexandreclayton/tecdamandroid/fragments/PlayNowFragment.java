@@ -3,9 +3,11 @@ package io.github.alexandreclayton.tecdamandroid.fragments;
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.NotificationCompat;
 import android.support.v4.util.ArraySet;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -25,6 +27,7 @@ import com.spotify.sdk.android.player.Spotify;
 import com.spotify.sdk.android.player.SpotifyPlayer;
 import com.squareup.picasso.Picasso;
 
+import java.io.IOException;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
@@ -51,6 +54,7 @@ public class PlayNowFragment extends Fragment implements SpotifyPlayer.Notificat
     private TextView txtMusica;
     private TextView txtAlbum;
     private ImageView imgPlaylist;
+    private NotificationCompat.Builder builderNotification;
 
 
     @Override
@@ -63,12 +67,14 @@ public class PlayNowFragment extends Fragment implements SpotifyPlayer.Notificat
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_playnow, container, false);
+
         // Componentes de tela
         btnPlayPause = root.findViewById(R.id.btnPlayPause);
         btnPrevious = root.findViewById(R.id.btnPrevious);
         btnNext = root.findViewById(R.id.btnNext);
         txtMusica = root.findViewById(R.id.txtMusica);
         txtAlbum = root.findViewById(R.id.txtAlbum);
+        imgPlaylist = root.findViewById(R.id.imgPlaylist);
 
         // Pegando a playlist selecionada.
         sharedPref = getActivity().getPreferences(Context.MODE_PRIVATE);
@@ -127,6 +133,7 @@ public class PlayNowFragment extends Fragment implements SpotifyPlayer.Notificat
                         @Override
                         public void onSuccess() {
                             // Notification
+                            getDataCurrentPlaying();
                         }
 
                         @Override
@@ -145,6 +152,7 @@ public class PlayNowFragment extends Fragment implements SpotifyPlayer.Notificat
                         @Override
                         public void onSuccess() {
                             // Notification
+                            getDataCurrentPlaying();
                         }
 
                         @Override
@@ -215,17 +223,14 @@ public class PlayNowFragment extends Fragment implements SpotifyPlayer.Notificat
             case UNKNOWN:
                 break;
             case kSpPlaybackNotifyPlay:
-                getDataCurrentPlaying();
                 break;
             case kSpPlaybackNotifyPause:
                 break;
             case kSpPlaybackNotifyTrackChanged:
                 break;
             case kSpPlaybackNotifyNext:
-                getDataCurrentPlaying();
                 break;
             case kSpPlaybackNotifyPrev:
-                getDataCurrentPlaying();
                 break;
             case kSpPlaybackNotifyShuffleOn:
                 break;
@@ -250,6 +255,7 @@ public class PlayNowFragment extends Fragment implements SpotifyPlayer.Notificat
             case kSpPlaybackNotifyTrackDelivered:
                 break;
             case kSpPlaybackNotifyMetadataChanged:
+                getDataCurrentPlaying();
                 break;
             default:
                 break;
@@ -266,10 +272,17 @@ public class PlayNowFragment extends Fragment implements SpotifyPlayer.Notificat
             spotify.getSpotifyService().getCurrentPlaying().enqueue(new Callback<CurrentPlaying>() {
                 @Override
                 public void onResponse(Call<CurrentPlaying> call, Response<CurrentPlaying> response) {
-                    if (response.isSuccessful()) {
+                    if (response.isSuccessful() && response.body().item != null) {
                         txtAlbum.setText(response.body().item.album.name);
                         txtMusica.setText(response.body().item.name);
                         Picasso.with(getContext()).load(response.body().item.album.images.get(0).url).into(imgPlaylist);
+                        /*
+                        try {
+                            setNotification(Picasso.with(getContext()).load(response.body().item.album.images.get(0).url).get()
+                                    , response.body().item.album.name, response.body().item.name);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }*/
                     }
                 }
 
@@ -280,5 +293,14 @@ public class PlayNowFragment extends Fragment implements SpotifyPlayer.Notificat
             });
 
         }
+    }
+
+    public void setNotification(Bitmap image, String titulo, String text) {
+        // Notification
+        NotificationCompat.Builder mBuilder =
+                new NotificationCompat.Builder(getContext())
+                        .setLargeIcon(image)
+                        .setContentTitle(titulo)
+                        .setContentText(text);
     }
 }
