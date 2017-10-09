@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.spotify.sdk.android.player.Config;
@@ -22,6 +23,7 @@ import com.spotify.sdk.android.player.Player;
 import com.spotify.sdk.android.player.PlayerEvent;
 import com.spotify.sdk.android.player.Spotify;
 import com.spotify.sdk.android.player.SpotifyPlayer;
+import com.squareup.picasso.Picasso;
 
 import java.util.HashSet;
 import java.util.Iterator;
@@ -29,7 +31,11 @@ import java.util.Set;
 
 import io.github.alexandreclayton.tecdamandroid.API.SpotifyImpl;
 import io.github.alexandreclayton.tecdamandroid.MainActivity;
+import io.github.alexandreclayton.tecdamandroid.Model.CurrentPlaying;
 import io.github.alexandreclayton.tecdamandroid.R;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 import static io.github.alexandreclayton.tecdamandroid.MainActivity.TOKEN;
 
@@ -44,6 +50,7 @@ public class PlayNowFragment extends Fragment implements SpotifyPlayer.Notificat
     private ImageButton btnNext;
     private TextView txtMusica;
     private TextView txtAlbum;
+    private ImageView imgPlaylist;
 
 
     @Override
@@ -70,6 +77,7 @@ public class PlayNowFragment extends Fragment implements SpotifyPlayer.Notificat
         // Configurando API Spotify
         if (MainActivity.TOKEN != null) {
             spotify = new SpotifyImpl(MainActivity.TOKEN);
+            getDataCurrentPlaying();
         }
 
         // Configurando o play
@@ -174,9 +182,9 @@ public class PlayNowFragment extends Fragment implements SpotifyPlayer.Notificat
 
     @Override
     public void onLoggedIn() {
-       // if (!playlist.isEmpty()) {
-       //     mPlayer.playUri(null, playlist, 0, 0);
-       // }
+        // if (!playlist.isEmpty()) {
+        //     mPlayer.playUri(null, playlist, 0, 0);
+        // }
     }
 
     @Override
@@ -205,15 +213,19 @@ public class PlayNowFragment extends Fragment implements SpotifyPlayer.Notificat
         switch (playerEvent) {
             // Handle event type as necessary
             case UNKNOWN:
+                break;
             case kSpPlaybackNotifyPlay:
+                getDataCurrentPlaying();
                 break;
             case kSpPlaybackNotifyPause:
                 break;
             case kSpPlaybackNotifyTrackChanged:
                 break;
             case kSpPlaybackNotifyNext:
+                getDataCurrentPlaying();
                 break;
             case kSpPlaybackNotifyPrev:
+                getDataCurrentPlaying();
                 break;
             case kSpPlaybackNotifyShuffleOn:
                 break;
@@ -242,11 +254,31 @@ public class PlayNowFragment extends Fragment implements SpotifyPlayer.Notificat
             default:
                 break;
         }
-
     }
 
     @Override
     public void onPlaybackError(Error error) {
 
+    }
+
+    public void getDataCurrentPlaying() {
+        if (spotify != null) {
+            spotify.getSpotifyService().getCurrentPlaying().enqueue(new Callback<CurrentPlaying>() {
+                @Override
+                public void onResponse(Call<CurrentPlaying> call, Response<CurrentPlaying> response) {
+                    if (response.isSuccessful()) {
+                        txtAlbum.setText(response.body().item.album.name);
+                        txtMusica.setText(response.body().item.name);
+                        Picasso.with(getContext()).load(response.body().item.album.images.get(0).url).into(imgPlaylist);
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<CurrentPlaying> call, Throwable t) {
+
+                }
+            });
+
+        }
     }
 }

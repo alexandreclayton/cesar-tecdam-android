@@ -53,7 +53,8 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/txtAlbum"
@@ -64,15 +65,13 @@
         android:layout_marginLeft="2dp"
         android:layout_marginRight="2dp"
         android:layout_marginStart="2dp"
-        android:text="TextView"
         android:textAlignment="center"
         android:textColor="@color/textColorPrimary"
         android:textSize="14sp"
         app:layout_constraintBottom_toTopOf="@+id/btnPlayPause"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        tools:text="Album" />
+        app:layout_constraintRight_toRightOf="parent"/>
 
     <TextView
         android:id="@+id/txtMusica"
@@ -83,7 +82,6 @@
         android:layout_marginLeft="2dp"
         android:layout_marginRight="2dp"
         android:layout_marginStart="2dp"
-        android:text="TextView"
         android:textAlignment="center"
         android:textColor="@color/textColorPrimary"
         android:textSize="24sp"
@@ -91,7 +89,6 @@
         app:layout_constraintBottom_toTopOf="@+id/txtAlbum"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        tools:text="Music" />
+        app:layout_constraintRight_toRightOf="parent" />
 
 </android.support.constraint.ConstraintLayout>
