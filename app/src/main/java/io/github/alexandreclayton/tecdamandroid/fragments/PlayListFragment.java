@@ -21,6 +21,7 @@ import io.github.alexandreclayton.tecdamandroid.Model.PlaylistBase;
 import io.github.alexandreclayton.tecdamandroid.Model.PlaylistTrack;
 import io.github.alexandreclayton.tecdamandroid.R;
 import io.github.alexandreclayton.tecdamandroid.adapter.PlaylistAdapter;
+import io.github.alexandreclayton.tecdamandroid.broadcast.ConnectionReceiver;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -43,7 +44,8 @@ public class PlayListFragment extends Fragment {
         sharedPref = getActivity().getPreferences(Context.MODE_PRIVATE);
         lvPlaylist = root.findViewById(R.id.lvPlaylist);
 
-        if (!MainActivity.TOKEN.isEmpty()) {
+        if (MainActivity.TOKEN != null
+                && !MainActivity.TOKEN.isEmpty()) {
             final SpotifyImpl spotify = new SpotifyImpl(MainActivity.TOKEN);
             spotify.getSpotifyService().getPlaylists().enqueue(new Callback<Playlist>() {
                 @Override

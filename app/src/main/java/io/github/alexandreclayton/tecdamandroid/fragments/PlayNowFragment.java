@@ -272,7 +272,7 @@ public class PlayNowFragment extends Fragment implements SpotifyPlayer.Notificat
             spotify.getSpotifyService().getCurrentPlaying().enqueue(new Callback<CurrentPlaying>() {
                 @Override
                 public void onResponse(Call<CurrentPlaying> call, Response<CurrentPlaying> response) {
-                    if (response.isSuccessful() && response.body().item != null) {
+                    if (response.isSuccessful() && response.body() != null) {
                         txtAlbum.setText(response.body().item.album.name);
                         txtMusica.setText(response.body().item.name);
                         Picasso.with(getContext()).load(response.body().item.album.images.get(0).url).into(imgPlaylist);

@@ -3,7 +3,7 @@
     <string name="PLAYLISTS">PLAYLISTS</string>
     <string name="FOLLOWERS">FOLLOWERS</string>
     <string name="FOLLOWING">FOLLOWING</string>
-    <string name="msgConnectionRestored">Is connected</string>
-    <string name="msgNoConection">Is disconnected</string>
+    <string name="msgConnectionRestored">Internet conectada.</string>
+    <string name="msgNoConection">Internet desconectada.</string>
     <string name="music">musica(s)</string>
 </resources>

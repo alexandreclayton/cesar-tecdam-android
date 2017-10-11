@@ -20,6 +20,7 @@ import com.spotify.sdk.android.authentication.AuthenticationResponse;
 
 import java.util.Locale;
 
+import io.github.alexandreclayton.tecdamandroid.broadcast.ConnectionReceiver;
 import io.github.alexandreclayton.tecdamandroid.fragments.PlayListFragment;
 import io.github.alexandreclayton.tecdamandroid.fragments.PlayNowFragment;
 import io.github.alexandreclayton.tecdamandroid.fragments.ProfileFragment;
@@ -61,15 +62,23 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        BottomNavigationView navigation = findViewById(R.id.navigation);
-        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-        onRequestTokenClicked(this.getCurrentFocus());
+        if (ConnectionReceiver.isOnline(getApplicationContext())) {
+            setContentView(R.layout.activity_main);
+            BottomNavigationView navigation = findViewById(R.id.navigation);
+            navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+            if (ConnectionReceiver.isOnline(getApplicationContext())) {
+                onRequestTokenClicked(this.getCurrentFocus());
+            }
+        } else {
+            Intent intent = new Intent(this, NoConn.class);
+            startActivity(intent);
+        }
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+
         final AuthenticationResponse response = AuthenticationClient.getResponse(resultCode, data);
 
         if (AUTH_TOKEN_REQUEST_CODE == requestCode) {
