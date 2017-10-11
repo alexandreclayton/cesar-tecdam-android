@@ -25,7 +25,7 @@ import io.github.alexandreclayton.tecdamandroid.fragments.PlayListFragment;
 import io.github.alexandreclayton.tecdamandroid.fragments.PlayNowFragment;
 import io.github.alexandreclayton.tecdamandroid.fragments.ProfileFragment;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseActivity {
 
     public static final String CLIENT_ID = "7e7bd3c704be43e192bdff63a4f9531f";
     public static String TOKEN = "";
@@ -78,7 +78,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
         final AuthenticationResponse response = AuthenticationClient.getResponse(resultCode, data);
 
         if (AUTH_TOKEN_REQUEST_CODE == requestCode) {
@@ -102,6 +101,11 @@ public class MainActivity extends AppCompatActivity {
         } else {
             buildFragments(fragmentManager);
         }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
     }
 
     public void onRequestTokenClicked(View view) {

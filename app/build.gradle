@@ -41,16 +41,15 @@ dependencies {
     compile 'com.spotify.sdk:spotify-player-24-noconnect-2.20b@aar'
     //CircleImageView
     //GSON
-    
 
     //Retrofit
     compile "com.squareup.retrofit2:retrofit:${rootProject.ext.retrofitVersion}"
     compile "com.squareup.retrofit2:converter-gson:${rootProject.ext.retrofitVersion}"
 
     //Picasso
-    
+
     //for lifecycle and LiveData and ViewModel
-    
+
     compile "com.android.support:support-v4:${rootProject.ext.androidSupportVersion}"
     compile 'com.spotify.android:auth:1.0.0-alpha'
     compile 'de.hdodenhof:circleimageview:2.1.0'
