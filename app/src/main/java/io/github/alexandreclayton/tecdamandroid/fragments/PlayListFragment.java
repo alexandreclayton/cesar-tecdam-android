@@ -52,10 +52,11 @@ public class PlayListFragment extends Fragment {
                 public void onResponse(Call<Playlist> call, Response<Playlist> response) {
                     if (response.isSuccessful()) {
                         Playlist playlist = response.body();
-
-                        PlaylistAdapter playlistAdapter = new PlaylistAdapter(getContext()
-                                , R.layout.playlistview, playlist.items);
-                        lvPlaylist.setAdapter(playlistAdapter);
+                        if (playlist != null) {
+                            PlaylistAdapter playlistAdapter = new PlaylistAdapter(getContext()
+                                    , R.layout.playlistview, playlist.items);
+                            lvPlaylist.setAdapter(playlistAdapter);
+                        }
                     }
                 }
 

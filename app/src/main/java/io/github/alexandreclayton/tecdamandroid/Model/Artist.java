@@ -11,4 +11,9 @@ public class Artist {
     public List<String> genres;
     public List<Image> images;
     public Integer popularity;
+    public String name;
+    public String id;
+    public String type;
+    public String uri;
+    public String href;
 }

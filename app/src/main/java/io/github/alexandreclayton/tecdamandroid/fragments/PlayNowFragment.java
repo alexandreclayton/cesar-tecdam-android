@@ -1,9 +1,11 @@
 package io.github.alexandreclayton.tecdamandroid.fragments;
 
 import android.app.Activity;
+import android.app.NotificationManager;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -26,6 +28,7 @@ import com.spotify.sdk.android.player.PlayerEvent;
 import com.spotify.sdk.android.player.Spotify;
 import com.spotify.sdk.android.player.SpotifyPlayer;
 import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Target;
 
 import java.io.IOException;
 import java.util.HashSet;
@@ -273,16 +276,20 @@ public class PlayNowFragment extends Fragment implements SpotifyPlayer.Notificat
                 @Override
                 public void onResponse(Call<CurrentPlaying> call, Response<CurrentPlaying> response) {
                     if (response.isSuccessful() && response.body() != null) {
-                        txtAlbum.setText(response.body().item.album.name);
-                        txtMusica.setText(response.body().item.name);
-                        Picasso.with(getContext()).load(response.body().item.album.images.get(0).url).into(imgPlaylist);
-                        /*
+                        CurrentPlaying currentPlaying = response.body();
+
+                        txtAlbum.setText(currentPlaying.item.album.name);
+                        txtMusica.setText(currentPlaying.item.name);
+                        Picasso.with(getContext()).load(currentPlaying.item.album.images.get(0).url).into(imgPlaylist);
+                        // Update notification
                         try {
-                            setNotification(Picasso.with(getContext()).load(response.body().item.album.images.get(0).url).get()
-                                    , response.body().item.album.name, response.body().item.name);
-                        } catch (IOException e) {
+
+                            setNotification(currentPlaying.item.album.images.get(0).url
+                                    , currentPlaying.item.name, !currentPlaying.item.artists.isEmpty() ?
+                                            currentPlaying.item.artists.get(0).name : currentPlaying.item.album.name);
+                        } catch (Exception e) {
                             e.printStackTrace();
-                        }*/
+                        }
                     }
                 }
 
@@ -291,16 +298,20 @@ public class PlayNowFragment extends Fragment implements SpotifyPlayer.Notificat
 
                 }
             });
-
         }
     }
 
-    public void setNotification(Bitmap image, String titulo, String text) {
+    public void setNotification(String image, String titulo, String text) {
+
         // Notification
         NotificationCompat.Builder mBuilder =
                 new NotificationCompat.Builder(getContext())
-                        .setLargeIcon(image)
+                        .setSmallIcon(R.drawable.ic_play_circle_outline_black_24dp)
                         .setContentTitle(titulo)
                         .setContentText(text);
+        NotificationManager mNotifyMgr =
+                (NotificationManager) getContext().getSystemService(Context.NOTIFICATION_SERVICE);
+        mNotifyMgr.notify(001, mBuilder.build());
+
     }
 }
