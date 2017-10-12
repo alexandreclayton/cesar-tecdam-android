@@ -11,29 +11,32 @@
         android:id="@+id/txtDescFollowing"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="0dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
         android:text="@string/FOLLOWERS"
+        android:textAlignment="center"
         android:textColor="@color/textColorPrimary"
         android:textSize="12sp"
-        app:layout_constraintRight_toLeftOf="@+id/txtFollowing"
-        android:layout_marginRight="8dp"
-        app:layout_constraintLeft_toRightOf="@+id/textView3"
-        android:layout_marginLeft="8dp"
         app:layout_constraintBottom_toBottomOf="@+id/textView3"
-        android:layout_marginBottom="0dp"
-        app:layout_constraintHorizontal_bias="0.5" />
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintLeft_toRightOf="@+id/textView3"
+        app:layout_constraintRight_toLeftOf="@+id/txtFollowing" />
 
     <TextView
         android:id="@+id/txtFollowing"
-        android:layout_width="65dp"
-        android:layout_height="15dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="0dp"
+        android:layout_marginLeft="0dp"
+        android:layout_marginRight="24dp"
         android:text="@string/FOLLOWING"
+        android:textAlignment="center"
         android:textColor="@color/textColorPrimary"
         android:textSize="12sp"
-        android:layout_marginRight="24dp"
-        app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintBottom_toBottomOf="@+id/textView3"
-        android:layout_marginBottom="0dp"
-        tools:layout_editor_absoluteY="481dp" />
+        app:layout_constraintLeft_toRightOf="@+id/txtQtdFollowers"
+        app:layout_constraintRight_toRightOf="parent" />
 
     <TextView
         android:id="@+id/textView3"

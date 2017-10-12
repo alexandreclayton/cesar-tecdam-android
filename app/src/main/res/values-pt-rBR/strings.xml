@@ -1,9 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="PLAYLISTS">PLAYLISTS</string>
-    <string name="FOLLOWERS">FOLLOWERS</string>
-    <string name="FOLLOWING">FOLLOWING</string>
+    <string name="app_name">Spotify - Tecdam</string>
+    <string name="title_playnow">Play</string>
+    <string name="title_playlist">Playlist</string>
+    <string name="title_profile">Perfil</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_playnow_fragment">Hello blank PlayNow</string>
+    <string name="hello_playlist_fragment">Hello blank PlayList</string>
+    <string name="hello_profile_fragment">Hello blank Profile</string>
+
+    <string name="com_spotify_sdk_redirect_scheme">tecdamandroid</string>
+    <string name="com_spotify_sdk_redirect_host">auth</string>
+    <string name="PLAYLISTS">PLAYLISTA</string>
+    <string name="FOLLOWERS">SEGUIDORES</string>
+    <string name="FOLLOWING">SEGUINDO</string>
     <string name="msgConnectionRestored">Internet conectada.</string>
     <string name="msgNoConection">Internet desconectada.</string>
-    <string name="music">musica(s)</string>
+    <string name="music">músicas</string>
 </resources>
