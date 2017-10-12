@@ -24,16 +24,15 @@
 
     <TextView
         android:id="@+id/txtFollowing"
-        android:layout_width="65dp"
-        android:layout_height="15dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:text="@string/FOLLOWING"
         android:textColor="@color/textColorPrimary"
         android:textSize="12sp"
-        android:layout_marginRight="24dp"
-        app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintBottom_toBottomOf="@+id/textView3"
         android:layout_marginBottom="0dp"
-        tools:layout_editor_absoluteY="481dp" />
+        android:layout_marginRight="0dp"
+        app:layout_constraintRight_toRightOf="@+id/txtName" />
 
     <TextView
         android:id="@+id/textView3"
@@ -42,10 +41,10 @@
         android:text="@string/PLAYLISTS"
         android:textColor="@color/textColorPrimary"
         android:textSize="12sp"
-        android:layout_marginLeft="24dp"
-        app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginBottom="16dp" />
+        android:layout_marginBottom="14dp"
+        android:layout_marginLeft="0dp"
+        app:layout_constraintLeft_toLeftOf="@+id/txtName" />
 
     <TextView
         android:id="@+id/txtQtdPlaylist"
@@ -64,9 +63,9 @@
 
     <TextView
         android:id="@+id/txtQtdFollowin"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
+        android:layout_width="67dp"
+        android:layout_height="19dp"
+        android:layout_marginBottom="7dp"
         android:layout_marginLeft="0dp"
         android:layout_marginRight="0dp"
         android:text="0"
@@ -75,7 +74,8 @@
         app:layout_constraintBottom_toTopOf="@+id/txtFollowing"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="@+id/txtFollowing"
-        app:layout_constraintRight_toRightOf="@+id/txtFollowing" />
+        app:layout_constraintRight_toRightOf="@+id/txtFollowing"
+        tools:layout_editor_absoluteY="455dp" />
 
     <TextView
         android:id="@+id/txtQtdFollowers"
@@ -94,17 +94,19 @@
 
     <TextView
         android:id="@+id/txtName"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="32dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
+        android:layout_marginBottom="27dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
         android:text="NAME"
+        android:textAlignment="center"
         android:textColor="@color/textColorPrimary"
         android:textSize="30sp"
         app:layout_constraintBottom_toTopOf="@+id/txtQtdFollowers"
-        app:layout_constraintLeft_toLeftOf="@+id/txtQtdPlaylist"
-        app:layout_constraintRight_toRightOf="@+id/txtQtdFollowin" />
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintHorizontal_bias="0.0" />
 
     <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/profile_image"
@@ -114,15 +116,15 @@
         app:civ_border_color="#FF000000"
         app:civ_border_width="2dp"
         app:layout_constraintBottom_toTopOf="@+id/txtName"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@drawable/image_gradient"
         android:layout_marginBottom="64dp"
         android:layout_marginTop="64dp"
         android:layout_marginRight="64dp"
-        android:layout_marginLeft="64dp" />
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginLeft="64dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintHorizontal_bias="0.0" />
 
 </android.support.constraint.ConstraintLayout>
